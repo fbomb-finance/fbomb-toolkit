@@ -12,7 +12,7 @@ This repository is a monorepo manage with [yarn workspaces](https://classic.yarn
 Clone the repository 
 
 ```
-git clone git@github.com:pancakeswap/fbomb-toolkit.git
+git clone git@github.com:fbomb-finance/fbomb-toolkit.git
 ```
 
 Run yarn at the root of the workspace
