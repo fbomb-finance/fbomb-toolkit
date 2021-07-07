@@ -4,7 +4,7 @@ This repository is a monorepo manage with [yarn workspaces](https://classic.yarn
 
 ## Packages
 
-- [pancake-uikit](https://github.com/pancakeswap/pancake-toolkit/tree/master/packages/pancake-uikit) : React components used to build the Pancake UI
+- [fbomb-uikit](https://github.com/fbomb-finance/fbomb-toolkit/tree/master/packages/fbomb-uikit) : React components used to build the fBOMB UI
 - [eslint-config-pancake](https://github.com/pancakeswap/pancake-toolkit/tree/master/packages/eslint-config-pancake) : An ESLint config for pancake, with Typescript and Prettier support
 
 ## How to use
@@ -12,13 +12,13 @@ This repository is a monorepo manage with [yarn workspaces](https://classic.yarn
 Clone the repository 
 
 ```
-git clone git@github.com:pancakeswap/pancake-toolkit.git
+git clone git@github.com:pancakeswap/fbomb-toolkit.git
 ```
 
 Run yarn at the root of the workspace
 
 ```
-cd pancake-toolkit
+cd fbomb-toolkit
 yarn
 ```
 

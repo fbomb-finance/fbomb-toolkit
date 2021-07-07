@@ -23,12 +23,12 @@ const getBoxShadow = ({ isSuccess = false, isWarning = false, theme }: StyledInp
 const getHeight = ({ scale = scales.MD }: StyledInputProps) => {
   switch (scale) {
     case scales.SM:
-      return "32px";
+      return "22px";
     case scales.LG:
-      return "48px";
+      return "32px";
     case scales.MD:
     default:
-      return "40px";
+      return "32px";
   }
 };
 

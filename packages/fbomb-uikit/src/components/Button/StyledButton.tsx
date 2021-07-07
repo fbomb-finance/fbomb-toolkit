@@ -47,8 +47,9 @@ const StyledButton = styled.button<BaseButtonProps>`
   align-items: center;
   border: 0;
   border-radius: 16px;
-  box-shadow: 0px -1px 0px 0px rgba(14, 14, 44, 0.4) inset;
+  box-shadow: 0px 0px 0px 2px ${({ theme }) => theme.colors.text} inset;
   cursor: pointer;
+  color: ${({ theme }) => theme.colors.text};
   display: inline-flex;
   font-family: inherit;
   font-size: 16px;
@@ -58,16 +59,15 @@ const StyledButton = styled.button<BaseButtonProps>`
   line-height: 1;
   opacity: ${getOpacity};
   outline: 0;
-  transition: background-color 0.2s, opacity 0.2s;
+  transition: background-color 0.2s, opacity 0.2s, box-shadow 0.2s;
 
   &:hover:not(:disabled):not(.pancake-button--disabled):not(.pancake-button--disabled):not(:active) {
-    opacity: 0.65;
+    box-shadow: 0px 0px 0px 3px ${({ theme }) => theme.colors.text} inset;
   }
 
   &:active:not(:disabled):not(.pancake-button--disabled):not(.pancake-button--disabled) {
-    opacity: 0.85;
-    transform: translateY(1px);
-    box-shadow: none;
+    opacity: 0.5;
+    box-shadow: 0px 0px 0px 3px ${({ theme }) => theme.colors.text} inset;
   }
 
   ${getDisabledStyles}
