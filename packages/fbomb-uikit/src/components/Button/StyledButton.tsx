@@ -46,7 +46,7 @@ const getOpacity = ({ $isLoading = false }: TransientButtonProps) => {
 const StyledButton = styled.button<BaseButtonProps>`
   align-items: center;
   border: 0;
-  border-radius: 16px;
+  border-radius: 30px;
   box-shadow: 0px 0px 0px 2px ${({ theme }) => theme.colors.text} inset;
   cursor: pointer;
   color: ${({ theme }) => theme.colors.text};
