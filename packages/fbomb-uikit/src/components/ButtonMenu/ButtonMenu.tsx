@@ -32,7 +32,7 @@ const StyledButtonMenu = styled.div<StyledButtonMenuProps>`
 const ButtonMenu: React.FC<ButtonMenuProps> = ({
   activeIndex = 0,
   scale = scales.MD,
-  variant = variants.PRIMARY,
+  variant = variants.SECONDARY,
   onItemClick,
   children,
   ...props

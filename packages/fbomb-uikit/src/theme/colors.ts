@@ -2,7 +2,6 @@ import { Colors } from "./types";
 
 export const baseColors = {
   failure: "#ff5050",
-  primary: "#3055ff",
   primaryBright: "#53DEE9",
   primaryDark: "#0098A1",
   secondary: "#2e49ff",
@@ -11,14 +10,15 @@ export const baseColors = {
 };
 
 export const additionalColors = {
-  binance: "#F0B90B",
+  fantom: "#1969ff",
   overlay: "#343434",
 };
 
 export const lightColors: Colors = {
   ...baseColors,
   ...additionalColors,
-  background: "#FAF9FA",
+  primary: "#3055ff",
+  background: "#FFFFFF",
   backgroundDisabled: "#E9EAEB",
   backgroundAlt: "#FFFFFF",
   cardBorder: "#E7E3EB",
@@ -47,22 +47,23 @@ export const lightColors: Colors = {
 export const darkColors: Colors = {
   ...baseColors,
   ...additionalColors,
-  secondary: "#9A6AFF",
+  primary: "#FF8B1D",
+  secondary: "#ffb46a",
   background: "#08060B",
   backgroundDisabled: "#3c3742",
-  backgroundAlt: "#27262c",
+  backgroundAlt: "#181818",
   cardBorder: "#383241",
   contrast: "#FFFFFF",
   dropdown: "#1E1D20",
   dropdownDeep: "#100C18",
   invertedContrast: "#191326",
-  input: "#372F47",
-  inputSecondary: "#262130",
+  input: "#261b11",
+  inputSecondary: "#372b1b",
   primaryDark: "#0098A1",
-  tertiary: "#353547",
+  tertiary: "#252525",
   text: "#F4EEFF",
   textDisabled: "#666171",
-  textSubtle: "#B8ADD2",
+  textSubtle: "#DDDDDD",
   disabled: "#524B63",
   gradients: {
     bubblegum: "linear-gradient(139.73deg, #313D5C 0%, #3D2A54 100%)",

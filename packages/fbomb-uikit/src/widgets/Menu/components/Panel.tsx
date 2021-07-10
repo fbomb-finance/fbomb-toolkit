@@ -30,7 +30,8 @@ const StyledPanel = styled.div<{ isPushed: boolean; showMenu: boolean }>`
   ${({ isPushed }) => !isPushed && "white-space: nowrap;"};
 
   ${({ theme }) => theme.mediaQueries.nav} {
-    border-right: 2px solid rgba(133, 133, 133, 0.1);
+    border-right: none;
+    box-shadow: -6px 1px 6px 9px rgba(0, 0, 0, 20%);
     width: ${({ isPushed }) => `${isPushed ? SIDEBAR_WIDTH_FULL : SIDEBAR_WIDTH_REDUCED}px`};
   }
 `;
