@@ -17,13 +17,13 @@ const Wrapper = styled.div`
 
 const Colored = styled.div`
   display: inline;
-  color: ${({theme}) => theme.colors.primary};
-`
+  color: ${({ theme }) => theme.colors.primary};
+`;
 
 const Logo: React.FC<LogoProps> = () => {
   return (
     <Wrapper>
-      <Icon width="40px" mr="10px"/>
+      <Icon width="40px" mr="10px" />
       <Heading>
         Bomb
         <Colored>Dex</Colored>

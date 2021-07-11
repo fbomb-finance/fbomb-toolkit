@@ -38,7 +38,7 @@ export const links = [
   {
     label: "Bombing Range",
     icon: "FarmIcon",
-    href: "/farms"
+    href: "/farms",
   },
   {
     label: "More",
@@ -55,7 +55,7 @@ export const links = [
       {
         label: "Docs",
         href: "https://docs.fbomb.finance",
-      }
+      },
     ],
   },
 ];
@@ -64,7 +64,7 @@ export const socials = [
   {
     label: "Telegram",
     icon: "TelegramIcon",
-    href: "https://t.me/operafBomb"
+    href: "https://t.me/operafBomb",
   },
   {
     label: "Twitter",
