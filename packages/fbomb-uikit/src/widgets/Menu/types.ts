@@ -49,8 +49,6 @@ export interface PanelProps {
   isDark: boolean;
   toggleTheme: (isDark: boolean) => void;
   cakePriceUsd?: number;
-  currentLang: string;
-  setLang: (lang: Language) => void;
   links: Array<MenuEntry>;
 }
 
