@@ -8,7 +8,7 @@ import Logo from "./components/Logo";
 import Panel from "./components/Panel";
 import UserBlock from "./components/UserBlock";
 import { NavProps } from "./types";
-import Avatar from "./components/Avatar";
+// import Avatar from "./components/Avatar";
 import { MENU_HEIGHT, SIDEBAR_WIDTH_REDUCED, SIDEBAR_WIDTH_FULL } from "./config";
 
 const Wrapper = styled.div`
@@ -68,7 +68,7 @@ const Menu: React.FC<NavProps> = ({
   toggleTheme,
   cakePriceUsd,
   links,
-  profile,
+  //  profile,
   children,
 }) => {
   const { isXl } = useMatchBreakpoints();
@@ -80,22 +80,10 @@ const Menu: React.FC<NavProps> = ({
   useEffect(() => {
     const handleScroll = () => {
       const currentOffset = window.pageYOffset;
-      const isBottomOfPage = window.document.body.clientHeight === currentOffset + window.innerHeight;
-      const isTopOfPage = currentOffset === 0;
+      // const isBottomOfPage = window.document.body.clientHeight === currentOffset + window.innerHeight;
+      // const isTopOfPage = currentOffset === 0;
       // Always show the menu when user reach the top
-      if (isTopOfPage) {
-        setShowMenu(true);
-      }
-      // Avoid triggering anything at the bottom because of layout shift
-      else if (!isBottomOfPage) {
-        if (currentOffset < refPrevOffset.current) {
-          // Has scroll up
-          setShowMenu(true);
-        } else {
-          // Has scroll down
-          setShowMenu(false);
-        }
-      }
+      setShowMenu(true);
       refPrevOffset.current = currentOffset;
     };
     const throttledHandleScroll = throttle(handleScroll, 200);
@@ -121,7 +109,7 @@ const Menu: React.FC<NavProps> = ({
         {!!login && !!logout && (
           <Flex>
             <UserBlock account={account} login={login} logout={logout} />
-            {profile && <Avatar profile={profile} />}
+            {/* profile && <Avatar profile={profile} /> */}
           </Flex>
         )}
       </StyledNav>

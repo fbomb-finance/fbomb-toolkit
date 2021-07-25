@@ -61,7 +61,7 @@ export const PancakeStack = styled.div<HandleProps>`
   }
 
   .pancake {
-    background: #e27c31;
+    background: ${({ theme }) => theme.colors.primary};
     border-radius: 50%;
     width: ${getScale("pancakeSize")};
     height: ${getScale("pancakeSize")};
@@ -69,7 +69,6 @@ export const PancakeStack = styled.div<HandleProps>`
     transition: 0.4s ease;
     top: 2px;
     left: 4px;
-    box-shadow: 0 ${getScale("pancakeThickness")} 0 ${getScale("pancakeThickness")} #fbbe7c;
   }
 
   .pancake:nth-child(1) {
@@ -95,7 +94,7 @@ export const PancakeStack = styled.div<HandleProps>`
   .pancake:nth-child(3):after {
     content: "";
     position: absolute;
-    background: #ef8927;
+    background: ${({ theme }) => theme.colors.primary};
     border-radius: 20px;
     width: 50%;
     height: 20%;
@@ -114,12 +113,10 @@ export const PancakeStack = styled.div<HandleProps>`
   .butter {
     width: ${getScale("butterWidth")};
     height: ${getScale("butterHeight")};
-    background: #fbdb60;
     top: ${getScale("butterTop")};
     left: ${getScale("butterLeft")};
     position: absolute;
     border-radius: ${getScale("butterRadius")};
-    box-shadow: 0 ${getScale("butterThickness")} 0 ${getScale("butterThickness")} #d67823;
     transform: scale(0);
     transition: 0.2s ease;
   }
@@ -142,8 +139,6 @@ export const PancakeInput = styled.input<InputProps>`
   }
 
   &:checked + label .pancake:nth-child(1) {
-    background: #e27c31;
-    box-shadow: 0 ${getScale("pancakeThickness")} 0 ${getScale("pancakeThickness")} #fbbe7c;
     transition-delay: 0.2s;
   }
 
