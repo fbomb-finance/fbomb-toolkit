@@ -31,6 +31,7 @@ const getScale =
 
 export const Handle = styled.div<HandleProps>`
   background-color: ${({ theme }) => theme.toggle.handleBackground};
+  border: solid 1px gray;
   border-radius: 50%;
   cursor: pointer;
   height: ${getScale("handleHeight")};
