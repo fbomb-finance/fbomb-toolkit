@@ -61,6 +61,10 @@ export const links = [
         label: "Docs",
         href: "https://docs.fbomb.finance",
       },
+      {
+        label: "Blog",
+        href: "https://medium.com/@fbombcommunity"
+      }
     ],
   },
 ];

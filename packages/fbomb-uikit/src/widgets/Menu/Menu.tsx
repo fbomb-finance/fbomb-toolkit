@@ -31,6 +31,7 @@ const StyledNav = styled.nav<{ showMenu: boolean }>`
   background-color: ${({ theme }) => theme.nav.background};
   z-index: 20;
   transform: translate3d(0, 0, 0);
+  box-shadow: -3px 1px 6px 3px rgba(0, 0, 0, 20%);
 `;
 
 const BodyWrapper = styled.div`

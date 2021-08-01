@@ -30,7 +30,7 @@ const ConnectModal: React.FC<Props> = ({ login, onDismiss = () => null }) => (
         mb={index < config.length - 1 ? "8px" : "0"}
       />
     ))}
-    <HelpLink href="https://docs.pancakeswap.finance/get-started/connection-guide" external>
+    <HelpLink href="https://docs.fantom.foundation/tutorials/set-up-metamask" external>
       <HelpIcon color="primary" mr="6px" />
       Learn how to connect
     </HelpLink>

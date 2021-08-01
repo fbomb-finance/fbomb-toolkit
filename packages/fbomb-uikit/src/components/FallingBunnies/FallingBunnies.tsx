@@ -1,83 +1,85 @@
 import React from "react";
 import styled, { keyframes } from "styled-components";
 import BombIcon from "../Svg/Icons/Logo";
-import { BunnyProps, FallingBunniesProps } from "./types";
+import { FallingBunniesProps } from "./types";
 
-const bunnyFall = keyframes`
+const bombFall = keyframes`
   0% {
-    opacity: 1;
-    transform: translate(0, -100%) rotateZ(0deg);
+    opacity: 0;
+    transform: translate(-50%, 0);
   }
 
-  75% {
+  99% {
     opacity: 1;
-    transform: translate(100px, 75vh) rotateZ(270deg);
+    transform: translate(-50%, 50vh);
   }
 
   100% {
     opacity: 0;
-    transform: translate(150px, 100vh) rotateZ(360deg);
+    transform: translate(-50%, 50vh);
   }
 `;
 
-const Bunny = styled.div<BunnyProps>`
-  display: inline-flex;
+const boom = keyframes`
+  0% {
+    opacity: 0;
+    background-color: #FFFFFF;
+  }
+  1% {
+    opacity: 1;
+    background-color: #FFFFFF;
+  }
+  35% {
+    opacity: 1;
+    background-color: #fcff36;
+  }
+  75% {
+    opacity: 0.85;
+    background-color: #d7762c;
+  }
+  100% {
+    opacity: 0;
+    background-color: #884613;
+  }
+`
+
+const Boom = styled.div`
+  width: 100%;
+  height: 100%;
   position: fixed;
   top: 0;
-  left: ${({ position }) => `${position}vw`};
-  transform: translate3d(0, -100%, 0);
+  left: 0;
   user-select: none;
   pointer-events: none;
   z-index: 99999;
 
-  animation-name: ${bunnyFall};
-  animation-duration: ${({ duration }) => `${duration}s`};
+  animation-name: ${boom};
+  animation-duration: 2s;
   animation-timing-function: linear;
-  animation-iteration-count: ${({ iterations }) => (Number.isFinite(iterations) ? String(iterations) : "infinite")};
+  animation-delay: 0.7s;
+  animation-iteration-count: 1;
   animation-play-state: running;
+`
 
-  &:nth-child(5n + 5) {
-    animation-delay: ${({ duration }) => `${(duration / 10) * 1.3}s`};
-  }
-
-  &:nth-child(3n + 2) {
-    animation-delay: ${({ duration }) => `${(duration / 10) * 1.5}s`};
-  }
-
-  &:nth-child(2n + 5) {
-    animation-delay: ${({ duration }) => `${(duration / 10) * 1.7}s`};
-  }
-
-  &:nth-child(3n + 10) {
-    animation-delay: ${({ duration }) => `${(duration / 10) * 2.7}s`};
-  }
-
-  &:nth-child(7n + 2) {
-    animation-delay: ${({ duration }) => `${(duration / 10) * 3.5}s`};
-  }
-
-  &:nth-child(4n + 5) {
-    animation-delay: ${({ duration }) => `${(duration / 10) * 5.5}s`};
-  }
-
-  &:nth-child(3n + 7) {
-    animation-delay: ${({ duration }) => `${(duration / 10) * 8}s`};
-  }
-`;
+const FallingBomb = styled(BombIcon)`
+  animation: ${bombFall};
+  animation-duration: 0.8s;
+  animation-timing-function: linear;
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  top: -20px;
+  opacity: 0;
+`
 
 const FallingBunnies: React.FC<FallingBunniesProps> = ({
-  count = 30,
-  size = 32,
-  iterations = Infinity,
-  duration = 10,
+  size = 64
 }) => {
-  const bunnies = [...Array(count)].map((_, index) => (
-    <Bunny key={String(index)} position={Math.random() * 100} iterations={iterations} duration={duration}>
-      <BombIcon width={size} height={size} />
-    </Bunny>
-  ));
-
-  return <div>{bunnies}</div>;
+  return (
+    <Boom>
+      <FallingBomb width={size} height={size} />
+    </Boom>
+  )
 };
 
 export default FallingBunnies;

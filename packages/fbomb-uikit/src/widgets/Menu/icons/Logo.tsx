@@ -26,7 +26,7 @@ const Logo: React.FC<LogoProps> = () => {
       <Icon width="40px" mr="10px" />
       <Heading>
         Bomb
-        <Colored>Dex</Colored>
+        <Colored>Swap</Colored>
       </Heading>
     </Wrapper>
   );
