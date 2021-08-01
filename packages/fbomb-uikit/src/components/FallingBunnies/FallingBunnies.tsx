@@ -54,16 +54,16 @@ const Boom = styled.div`
   z-index: 99999;
 
   animation-name: ${boom};
-  animation-duration: 2s;
+  animation-duration: 2000ms;
   animation-timing-function: linear;
-  animation-delay: 0.7s;
+  animation-delay: 700ms;
   animation-iteration-count: 1;
   animation-play-state: running;
 `
 
 const FallingBomb = styled(BombIcon)`
   animation: ${bombFall};
-  animation-duration: 0.8s;
+  animation-duration: 800ms;
   animation-timing-function: linear;
   position: fixed;
   left: 50%;
