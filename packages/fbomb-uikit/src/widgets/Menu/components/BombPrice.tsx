@@ -5,7 +5,7 @@ import Text from "../../../components/Text/Text";
 import Skeleton from "../../../components/Skeleton/Skeleton";
 
 interface Props {
-  cakePriceUsd?: number;
+  bombPriceUsd?: number;
 }
 
 const PriceLink = styled.a`
@@ -21,18 +21,18 @@ const PriceLink = styled.a`
   }
 `;
 
-const CakePrice: React.FC<Props> = ({ cakePriceUsd }) => {
-  return cakePriceUsd ? (
+const BombPrice: React.FC<Props> = ({ bombPriceUsd }) => {
+  return bombPriceUsd ? (
     <PriceLink
       href="https://swap.fbomb.finance/#/swap?outputCurrency=0x8503eb4A136bDBeB323E37Aa6e0FA0C772228378"
       target="_blank"
     >
       <PancakeRoundIcon width="40px" mr="8px" />
-      <Text color="textSubtle" bold>{`$${cakePriceUsd.toFixed(3)}`}</Text>
+      <Text color="textSubtle" bold>{`$${bombPriceUsd.toFixed(4)}`}</Text>
     </PriceLink>
   ) : (
     <Skeleton width={80} height={24} />
   );
 };
 
-export default React.memo(CakePrice);
+export default React.memo(BombPrice);

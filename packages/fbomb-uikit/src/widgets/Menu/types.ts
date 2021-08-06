@@ -48,7 +48,7 @@ export interface MenuEntry {
 export interface PanelProps {
   isDark: boolean;
   toggleTheme: (isDark: boolean) => void;
-  cakePriceUsd?: number;
+  bombPriceUsd?: number;
   links: Array<MenuEntry>;
 }
 

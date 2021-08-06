@@ -67,7 +67,7 @@ const Menu: React.FC<NavProps> = ({
   logout,
   isDark,
   toggleTheme,
-  cakePriceUsd,
+  bombPriceUsd,
   links,
   //  profile,
   children,
@@ -121,7 +121,7 @@ const Menu: React.FC<NavProps> = ({
           showMenu={showMenu}
           isDark={isDark}
           toggleTheme={toggleTheme}
-          cakePriceUsd={cakePriceUsd}
+          bombPriceUsd={bombPriceUsd}
           pushNav={setIsPushed}
           links={links}
         />
