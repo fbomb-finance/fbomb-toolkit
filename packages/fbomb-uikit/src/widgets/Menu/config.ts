@@ -41,6 +41,11 @@ export const links = [
     href: "/farms",
   },
   {
+    label: "Minutes to Midnight",
+    icon: "MtmIcon",
+    href: "/manhattan",
+  },
+  {
     label: "The Workshop",
     icon: "WorkshopIcon",
     href: "/staking",
