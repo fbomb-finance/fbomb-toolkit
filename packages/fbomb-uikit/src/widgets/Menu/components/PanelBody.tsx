@@ -7,6 +7,7 @@ import Accordion from "./Accordion";
 import { MenuEntry, LinkLabel, LinkStatus } from "./MenuEntry";
 import MenuLink from "./MenuLink";
 import { PanelProps, PushedProps } from "../types";
+import newIcon from "../content/new.png";
 
 interface Props extends PanelProps, PushedProps {
   isMobile: boolean;
@@ -76,6 +77,9 @@ const PanelBody: React.FC<Props> = ({ isPushed, pushNav, isMobile, links }) => {
                 <LinkStatus color={entry.status.color} fontSize="14px">
                   {entry.status.text}
                 </LinkStatus>
+              )}
+              {entry.isNew && (
+                <img className="new" alt="New" src={newIcon} />
               )}
             </MenuLink>
           </MenuEntry>

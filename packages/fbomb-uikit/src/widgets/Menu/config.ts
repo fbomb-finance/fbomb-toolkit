@@ -49,6 +49,7 @@ export const links = [
     label: "The Workshop",
     icon: "WorkshopIcon",
     href: "/staking",
+    isNew: true,
   },
   {
     label: "More",
