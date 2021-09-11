@@ -62,6 +62,11 @@ const MenuEntry = styled.div<Props>`
     background: ${({ theme }) => theme.colors.gradients.bubblegum};
     background-size: 400% 100%;
   }
+
+  img.new {
+    height: 100%;
+    filter: drop-shadow(0 0 4px #FFC305);
+  }
 `;
 MenuEntry.defaultProps = {
   secondary: false,
