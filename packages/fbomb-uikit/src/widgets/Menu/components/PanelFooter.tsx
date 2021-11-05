@@ -33,11 +33,11 @@ const SocialEntry = styled.div`
   padding: 0 16px;
 `;
 
-const PanelFooter: React.FC<Props> = ({ isPushed, pushNav, toggleTheme, isDark, bombPriceUsd }) => {
-  if (!isPushed) {
+const PanelFooter: React.FC<Props> = ({ isOpen, openNav, toggleTheme, isDark, bombPriceUsd }) => {
+  if (!isOpen) {
     return (
       <Container>
-        <IconButton variant="text" onClick={() => pushNav(true)}>
+        <IconButton variant="text" onClick={() => openNav(true)}>
           <CogIcon />
         </IconButton>
       </Container>

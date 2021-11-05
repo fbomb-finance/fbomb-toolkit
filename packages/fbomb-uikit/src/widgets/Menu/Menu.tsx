@@ -2,21 +2,23 @@ import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 import throttle from "lodash/throttle";
 import Overlay from "../../components/Overlay/Overlay";
-import Flex from "../../components/Box/Flex";
 import { useMatchBreakpoints } from "../../hooks";
 import Logo from "./components/Logo";
-import Panel from "./components/Panel";
+import PopupPanel from "./components/Panel";
 import UserBlock from "./components/UserBlock";
 import { NavProps } from "./types";
 // import Avatar from "./components/Avatar";
 import { MENU_HEIGHT, SIDEBAR_WIDTH_REDUCED, SIDEBAR_WIDTH_FULL } from "./config";
+import { FarmIcon, HomeIcon, TradeIcon, WorkshopIcon } from "./icons";
+import NavTopLinks from "./components/NavTopLinks";
+import { Flex } from "../..";
 
 const Wrapper = styled.div`
   position: relative;
   width: 100%;
 `;
 
-const StyledNav = styled.nav<{ showMenu: boolean }>`
+const StyledTopNav = styled.nav<{ showMenu: boolean }>`
   position: fixed;
   top: ${({ showMenu }) => (showMenu ? 0 : `-${MENU_HEIGHT}px`)};
   left: 0;
@@ -33,6 +35,16 @@ const StyledNav = styled.nav<{ showMenu: boolean }>`
   transform: translate3d(0, 0, 0);
   box-shadow: -3px 1px 6px 3px rgba(0, 0, 0, 20%);
 `;
+
+const StyledBottomNav = styled.div`
+  position: fixed;
+  display: flex;
+  justify-content: space-around;
+  bottom: 0;
+  width: 100%;
+  height: 48px;
+  background-color: ${({ theme }) => theme.nav.background};
+`
 
 const BodyWrapper = styled.div`
   position: relative;
@@ -74,7 +86,7 @@ const Menu: React.FC<NavProps> = ({
 }) => {
   const { isXl } = useMatchBreakpoints();
   const isMobile = isXl === false;
-  const [isPushed, setIsPushed] = useState(!isMobile);
+  const [isOpen, setOpen] = useState(false);
   const [showMenu, setShowMenu] = useState(true);
   const refPrevOffset = useRef(window.pageYOffset);
 
@@ -100,36 +112,48 @@ const Menu: React.FC<NavProps> = ({
 
   return (
     <Wrapper>
-      <StyledNav showMenu={showMenu}>
+      <StyledTopNav showMenu={showMenu}>
         <Logo
-          isPushed={isPushed}
-          togglePush={() => setIsPushed((prevState: boolean) => !prevState)}
+          withText
           isDark={isDark}
           href={homeLink?.href ?? "/"}
         />
+        {!isMobile && (
+          <NavTopLinks links={links}/>
+        )}
         {!!login && !!logout && (
           <Flex>
             <UserBlock account={account} login={login} logout={logout} />
             {/* profile && <Avatar profile={profile} /> */}
           </Flex>
         )}
-      </StyledNav>
-      <BodyWrapper>
-        <Panel
-          isPushed={isPushed}
+        <PopupPanel
+          isOpen={isOpen}
           isMobile={isMobile}
           showMenu={showMenu}
           isDark={isDark}
           toggleTheme={toggleTheme}
           bombPriceUsd={bombPriceUsd}
-          pushNav={setIsPushed}
+          openNav={setOpen}
           links={links}
         />
-        <Inner isPushed={isPushed} showMenu={showMenu}>
+      </StyledTopNav>
+      <BodyWrapper>
+        <Inner isPushed={isOpen} showMenu={showMenu}>
           {children}
         </Inner>
-        <MobileOnlyOverlay show={isPushed} onClick={() => setIsPushed(false)} role="presentation" />
+        <MobileOnlyOverlay show={isOpen} onClick={() => setOpen(false)} role="presentation" />
       </BodyWrapper>
+      {isMobile && (
+        <StyledBottomNav>
+          <HomeIcon width="28px"/>
+          <TradeIcon width="28px"/>
+          <div/>
+          <FarmIcon width="28px"/>
+          <WorkshopIcon width="28px"/>
+        </StyledBottomNav>
+      )}
+      
     </Wrapper>
   );
 };

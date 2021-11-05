@@ -13,7 +13,7 @@ export const Arrow = styled.div`
   &::before {
     content: "";
     transform: rotate(45deg);
-    background: ${({ theme }) => theme.tooltip.background};
+    background: ${({ theme }) => theme.colors.background};
   }
 `;
 
@@ -24,9 +24,9 @@ export const StyledTooltip = styled.div`
   border-radius: 16px;
   max-width: 320px;
   z-index: 101;
-  background: ${({ theme }) => theme.tooltip.background};
-  color: ${({ theme }) => theme.tooltip.text};
-  box-shadow: ${({ theme }) => theme.tooltip.boxShadow};
+  background: ${({ theme }) => theme.colors.background};
+  color: ${({ theme }) => theme.colors.text};
+  box-shadow: 0 4px 6px 2px #00000033;
 
   &[data-popper-placement^="top"] > ${Arrow} {
     bottom: -4px;

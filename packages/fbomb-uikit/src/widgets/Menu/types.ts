@@ -15,8 +15,8 @@ export interface Profile {
 }
 
 export interface PushedProps {
-  isPushed: boolean;
-  pushNav: (isPushed: boolean) => void;
+  isOpen: boolean;
+  openNav: (isOpen: boolean) => void;
 }
 
 export interface NavTheme {
@@ -43,6 +43,7 @@ export interface MenuEntry {
   calloutClass?: string;
   initialOpenState?: boolean;
   status?: LinkStatus;
+  shortLabel?: string;
   isNew?: boolean;
 }
 

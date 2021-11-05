@@ -1,3 +1,4 @@
+import { MenuEntry } from ".";
 import { LinkStatus } from "./types";
 
 export const status = {
@@ -15,7 +16,7 @@ export const status = {
   },
 };
 
-export const links = [
+export const links: MenuEntry[] = [
   {
     label: "Home",
     icon: "HomeIcon",
@@ -37,16 +38,19 @@ export const links = [
   },
   {
     label: "Bombing Range",
+    shortLabel: "Farm",
     icon: "FarmIcon",
     href: "/farms",
   },
   {
     label: "Minutes to Midnight",
+    shortLabel: "MtM",
     icon: "MtmIcon",
     href: "/manhattan",
   },
   {
     label: "The Workshop",
+    shortLabel: "Stake",
     icon: "WorkshopIcon",
     href: "/staking",
     isNew: true,
