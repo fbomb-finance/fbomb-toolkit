@@ -18,9 +18,9 @@ const getBorderColor = ({ theme, variant }: StyledButtonMenuProps) => {
 
 const StyledButtonMenu = styled.div<StyledButtonMenuProps>`
   background-color: ${getBackgroundColor};
-  border-radius: 30px;
+  border-radius: 4px;
   display: inline-flex;
-  border: 1px solid ${getBorderColor};
+  border: 2px solid ${getBorderColor};
 
   & > button + button,
   & > a + a {

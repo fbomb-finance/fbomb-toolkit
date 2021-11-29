@@ -22,6 +22,11 @@ const darkTheme: DefaultTheme = {
   pancakeToggle: darkPancakeToggle,
   radio: darkRadio,
   tooltip: darkTooltip,
+  shadows: {
+    ...base.shadows,
+    flat: "0 0 0 2px rgb(255 255 255 / 20%);",
+    button: `0 0 0 2px ${darkColors.border}`
+  }
 };
 
 export default darkTheme;

@@ -31,7 +31,7 @@ export const Default: React.FC = () => {
       </Row>
       <Row>
         <Alert title="Warning" variant="warning">
-          <Text as="p">This is a description</Text>
+          <Text as="p">This is a long description, with more details and multiline content.</Text>
         </Alert>
       </Row>
       <Row>

@@ -16,6 +16,7 @@ const MessageContainer = styled.div<MessageProps>`
   padding: 16px;
   border-radius: 0px;
   border: none;
+  color: ${({theme}) => theme.colors.text};
 
   svg {
     align-self: flex-start;

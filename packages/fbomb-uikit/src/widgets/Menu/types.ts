@@ -37,6 +37,7 @@ export interface MenuSubEntry {
 
 export interface MenuEntry {
   label: string;
+  bombLabel?: string;
   icon: string;
   items?: MenuSubEntry[];
   href?: string;

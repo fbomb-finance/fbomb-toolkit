@@ -46,8 +46,8 @@ const getOpacity = ({ $isLoading = false }: TransientButtonProps) => {
 const StyledButton = styled.button<BaseButtonProps>`
   align-items: center;
   border: 0;
-  border-radius: 30px;
-  box-shadow: 0px 0px 0px 2px ${({ theme }) => theme.colors.text} inset;
+  border-radius: 4px;
+  box-shadow: 0px 0px 0px 2px ${({ theme }) => theme.colors.textSubtle};
   cursor: pointer;
   color: ${({ theme }) => theme.colors.text};
   display: inline-flex;
@@ -62,12 +62,12 @@ const StyledButton = styled.button<BaseButtonProps>`
   transition: background-color 0.2s, opacity 0.2s, box-shadow 0.2s;
 
   &:hover:not(:disabled):not(.pancake-button--disabled):not(.pancake-button--disabled):not(:active) {
-    box-shadow: 0px 0px 0px 3px ${({ theme }) => theme.colors.text} inset;
+    box-shadow: 0px 0px 0px 2px ${({ theme }) => theme.colors.secondary};
   }
 
   &:active:not(:disabled):not(.pancake-button--disabled):not(.pancake-button--disabled) {
     opacity: 0.5;
-    box-shadow: 0px 0px 0px 3px ${({ theme }) => theme.colors.text} inset;
+    box-shadow: 0px 0px 0px 3px ${({ theme }) => theme.colors.textSubtle};
   }
 
   ${getDisabledStyles}

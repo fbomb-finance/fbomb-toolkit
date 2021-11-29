@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback, useRef } from "react";
 import { createPortal } from "react-dom";
 import { usePopper } from "react-popper";
+import { css, Keyframes, keyframes } from "styled-components";
 import { StyledTooltip, Arrow } from "./StyledTooltip";
 import { TooltipOptions, TooltipRefs } from "./types";
 
@@ -27,33 +28,41 @@ const useTooltip = (content: React.ReactNode, options: TooltipOptions): TooltipR
   const isHoveringOverTooltip = useRef(false);
   const hideTimeout = useRef<number>();
 
+  // whether the tooltip was last set visible via click
+  // for hover-click trigger option
+  const [clicked, setClicked] = useState(false)
+  useEffect(() => {
+    console.log(clicked)
+  }, [clicked])
+
   const hideTooltip = useCallback(
     (e: Event) => {
       const hide = () => {
         e.stopPropagation();
         e.preventDefault();
-        setVisible(false);
+        setVisible(!visible);
       };
 
-      if (trigger === "hover") {
+      if (trigger === "hover" || trigger === "hover-click") {
         if (hideTimeout.current) {
           window.clearTimeout(hideTimeout.current);
         }
         if (e.target === tooltipElement) {
           isHoveringOverTooltip.current = false;
         }
-        if (!isHoveringOverTooltip.current) {
+        if (!isHoveringOverTooltip.current && !clicked) {
           hideTimeout.current = window.setTimeout(() => {
             if (!isHoveringOverTooltip.current) {
               hide();
             }
           }, 100);
         }
-      } else {
+      } 
+      else {
         hide();
       }
     },
-    [tooltipElement, trigger]
+    [tooltipElement, trigger, clicked]
   );
 
   const showTooltip = useCallback(
@@ -61,7 +70,7 @@ const useTooltip = (content: React.ReactNode, options: TooltipOptions): TooltipR
       e.stopPropagation();
       e.preventDefault();
       setVisible(true);
-      if (trigger === "hover") {
+      if (trigger === "hover" || trigger === "hover-click") {
         if (e.target === targetElement) {
           // If we were about to close the tooltip and got back to it
           // then prevent closing it.
@@ -83,9 +92,17 @@ const useTooltip = (content: React.ReactNode, options: TooltipOptions): TooltipR
     [visible]
   );
 
+  const toggleHoverClick = useCallback(
+    (e: Event) => {
+      e.stopPropagation();
+      setClicked(!clicked);
+    },
+    [clicked]
+  )
+
   // Trigger = hover
   useEffect(() => {
-    if (targetElement === null || trigger !== "hover") return undefined;
+    if (targetElement === null || (trigger !== "hover" && trigger !== "hover-click")) return undefined;
 
     if (isTouchDevice()) {
       targetElement.addEventListener("touchstart", showTooltip);
@@ -98,13 +115,13 @@ const useTooltip = (content: React.ReactNode, options: TooltipOptions): TooltipR
       targetElement.removeEventListener("touchstart", showTooltip);
       targetElement.removeEventListener("touchend", hideTooltip);
       targetElement.removeEventListener("mouseenter", showTooltip);
-      targetElement.removeEventListener("mouseleave", showTooltip);
+      targetElement.removeEventListener("mouseleave", hideTooltip);
     };
   }, [trigger, targetElement, hideTooltip, showTooltip]);
 
   // Keep tooltip open when cursor moves from the targetElement to the tooltip
   useEffect(() => {
-    if (tooltipElement === null || trigger !== "hover") return undefined;
+    if (tooltipElement === null || (trigger !== "hover" && trigger !== "hover-click")) return undefined;
 
     tooltipElement.addEventListener("mouseenter", showTooltip);
     tooltipElement.addEventListener("mouseleave", hideTooltip);
@@ -116,16 +133,25 @@ const useTooltip = (content: React.ReactNode, options: TooltipOptions): TooltipR
 
   // Trigger = click
   useEffect(() => {
-    if (targetElement === null || trigger !== "click") return undefined;
+    if (targetElement === null || (trigger !== "click")) return undefined;
 
     targetElement.addEventListener("click", toggleTooltip);
 
     return () => targetElement.removeEventListener("click", toggleTooltip);
   }, [trigger, targetElement, visible, toggleTooltip]);
 
+  // Trigger = hover-click
+  useEffect(() => {
+    if (targetElement === null || (trigger !== "hover-click")) return undefined;
+
+    targetElement.addEventListener("click", toggleHoverClick);
+
+    return () => targetElement.removeEventListener("click", toggleHoverClick);
+  }, [trigger, targetElement, visible, toggleHoverClick]);
+
   // Handle click outside
   useEffect(() => {
-    if (trigger !== "click") return undefined;
+    if (trigger !== "click" && trigger !== "hover-click") return undefined;
 
     const handleClickOutside = ({ target }: Event) => {
       if (target instanceof Node) {
@@ -136,6 +162,7 @@ const useTooltip = (content: React.ReactNode, options: TooltipOptions): TooltipR
           !targetElement.contains(target)
         ) {
           setVisible(false);
+          setClicked(false)
         }
       }
     };
@@ -178,8 +205,33 @@ const useTooltip = (content: React.ReactNode, options: TooltipOptions): TooltipR
     ],
   });
 
+  const [transitioned, setTransition] = useState(false)
+
+  const animation = keyframes`
+    0% {
+      transform: ${styles.popper.transform} translateY(-10px);
+      opacity: 0;
+    }
+    100% {
+      transform: ${styles.popper.transform} translateY(0);
+      opacity: 1;
+    }
+  `
+
+  useEffect(() => {
+    setTimeout(() => {
+      setTransition(visible)
+    }, 0)
+  }, [visible])
+
   const tooltip = (
-    <StyledTooltip ref={setTooltipElement} style={styles.popper} {...attributes.popper}>
+    <StyledTooltip
+      ref={setTooltipElement}
+      $maxWidth={options.maxWidth}
+      $animation={css`animation: ${animation} 200ms ease-out forwards;`}
+      style={styles.popper}
+      {...attributes.popper}
+    >
       {content}
       <Arrow ref={setArrowElement} style={styles.arrow} />
     </StyledTooltip>

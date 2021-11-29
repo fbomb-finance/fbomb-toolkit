@@ -32,6 +32,8 @@ export const scaleKeys = {
   checkedLeft: "checkedLeft",
   toggleHeight: "toggleHeight",
   toggleWidth: "toggleWidth",
+  borderRadius: "borderRadius",
+  outerBorderRadius: "outerBorderRadius"
 } as const;
 
 export type ScaleKeys = typeof scaleKeys[keyof typeof scaleKeys];

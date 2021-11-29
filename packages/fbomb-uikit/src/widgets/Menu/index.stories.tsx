@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import noop from "lodash/noop";
-import { BrowserRouter, MemoryRouter } from "react-router-dom";
+import { BrowserRouter, MemoryRouter, useHistory } from "react-router-dom";
 import Flex from "../../components/Box/Flex";
 import Heading from "../../components/Heading/Heading";
 import Text from "../../components/Text/Text";
@@ -94,7 +94,6 @@ export const NotConnected: React.FC = () => {
         logout={noop}
         isDark={false}
         toggleTheme={noop}
-        langs={langs}
         setLang={noop}
         currentLang="EN"
         links={links}
@@ -119,7 +118,7 @@ export const NotConnected: React.FC = () => {
 export const WithoutConnectButton: React.FC = () => {
   return (
     <BrowserRouter>
-      <Menu isDark={false} toggleTheme={noop} langs={langs} setLang={noop} currentLang="EN" links={links}>
+      <Menu isDark={false} toggleTheme={noop} setLang={noop} currentLang="EN" links={links}>
         <div>
           <h1>No connect button on top</h1>
           This variant is needed for info site
@@ -138,7 +137,6 @@ export const WithNoProfile: React.FC = () => {
         logout={noop}
         isDark={false}
         toggleTheme={noop}
-        langs={langs}
         setLang={noop}
         currentLang="EN"
         cakePriceUsd={0.23158668932877668}
@@ -180,7 +178,6 @@ export const WithProfile: React.FC = () => {
         logout={noop}
         isDark={false}
         toggleTheme={noop}
-        langs={langs}
         setLang={noop}
         currentLang="EN"
         cakePriceUsd={0.23158668932877668}
@@ -225,33 +222,46 @@ export const MenuEntryComponent: React.FC = () => {
   );
 };
 
-export const WithSubmenuSelected: React.FC = () => {
+const SubmenuSelectedComponent: React.FC = () => {
+  const history = useHistory()
+
   return (
-    <MemoryRouter initialEntries={["/teams"]}>
-      <Menu
-        account="0xbdda50183d817c3289f895a4472eb475967dc980"
-        login={noop}
-        logout={noop}
-        isDark={false}
-        toggleTheme={noop}
-        langs={langs}
-        setLang={noop}
-        currentLang="EN"
-        cakePriceUsd={0.23158668932877668}
-        links={links}
-        profile={{
-          username: "pancakeswap",
-          image: "https://pancakeswap.finance/images/nfts/blueberries-preview.png",
-          profileLink: "/profile",
-          noProfileLink: "/no-profile",
-        }}
-      >
-        <div>
-          <Heading as="h1" mb="8px">
-            Submenu leaderboard selected
-          </Heading>
-        </div>
-      </Menu>
-    </MemoryRouter>
+    <Menu
+      account="0xbdda50183d817c3289f895a4472eb475967dc980"
+      login={noop}
+      logout={noop}
+      isDark={false}
+      toggleTheme={noop}
+      currentLang="EN"
+      cakePriceUsd={0.23158668932877668}
+      links={links}
+      profile={{
+        username: "pancakeswap",
+        image: "https://pancakeswap.finance/images/nfts/blueberries-preview.png",
+        profileLink: "/profile",
+        noProfileLink: "/no-profile",
+      }}
+    >
+      <div>
+        <Heading as="h1" mb="8px">
+          Select a page.
+        </Heading>
+      </div>
+    </Menu>
   );
 };
+
+let SubmenuSelectedWithRouter: React.FC = () => (
+  <MemoryRouter
+    initialEntries={['/farms']}>
+    <SubmenuSelectedComponent/>
+  </MemoryRouter>
+)
+
+let SubmenuSelected = SubmenuSelectedWithRouter.bind({})
+
+SubmenuSelected.args = {
+  
+};
+
+export { SubmenuSelected }

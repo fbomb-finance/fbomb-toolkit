@@ -25,6 +25,8 @@ export type Shadows = {
   warning: string;
   focus: string;
   inset: string;
+  flat: string;
+  button: string;
 };
 
 export type Gradients = {
@@ -56,6 +58,7 @@ export type Colors = {
   background: string;
   backgroundDisabled: string;
   backgroundAlt: string;
+  border: string;
   text: string;
   textDisabled: string;
   textSubtle: string;

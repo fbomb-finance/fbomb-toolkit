@@ -1,46 +1,66 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 
 export const Arrow = styled.div`
   &,
-  &::before {
+  &::after {
     position: absolute;
-    width: 10px;
-    height: 10px;
-    border-radius: 2px;
-    z-index: -1;
+    width: 16px;
+    height: 16px;
+    z-index: -100;
   }
 
-  &::before {
+  &::after {
     content: "";
-    transform: rotate(45deg);
     background: ${({ theme }) => theme.colors.background};
+    box-shadow: 0 0 0 2px ${({ theme }) => theme.colors.border} inset;
+  }
+
+  & {
+    height: 11px;
+    overflow: hidden;
   }
 `;
 
-export const StyledTooltip = styled.div`
+export const StyledTooltip = styled.div<{$maxWidth?: number, $animation?: any}>`
   padding: 16px;
   font-size: 16px;
   line-height: 130%;
-  border-radius: 16px;
-  max-width: 320px;
+  max-width: ${({$maxWidth}) => $maxWidth ?? '320'}px;
   z-index: 101;
   background: ${({ theme }) => theme.colors.background};
   color: ${({ theme }) => theme.colors.text};
-  box-shadow: 0 4px 6px 2px #00000033;
+  box-shadow: 0 0 0 2px ${({ theme }) => theme.colors.border} inset;
+  ${({$animation}) => $animation ?? 'none;'}
+
+  // lord have mercy, but those are really important
 
   &[data-popper-placement^="top"] > ${Arrow} {
-    bottom: -4px;
+    bottom: -8px;
+    &::after {
+      transform: translate(0, -8px) rotate(45deg) !important;
+    }
   }
 
   &[data-popper-placement^="bottom"] > ${Arrow} {
-    top: -4px;
+    top: -8px;
+    &::after {
+      transform: translate(0, 3px) rotate(45deg) !important;
+    }
   }
 
   &[data-popper-placement^="left"] > ${Arrow} {
-    right: -4px;
+    right: -8px;
+    transform: translate(3px, 22px) rotate(90deg) !important;
+    &::after {
+      transform: translate(0, 3px) rotate(45deg) !important;
+    }
   }
 
   &[data-popper-placement^="right"] > ${Arrow} {
-    left: -4px;
+    left: -8px;
+    transform: translate(-3px, 24px) rotate(270deg) !important;
+    &::after {
+      transform: translate(0, 3px) rotate(45deg) !important;
+    }
   }
 `;

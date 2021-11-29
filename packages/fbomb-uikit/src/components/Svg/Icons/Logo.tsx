@@ -1,11 +1,17 @@
 import React from "react";
 import { useTheme } from "styled-components";
+import darkTheme from "../../../theme/dark";
+import lightTheme from "../../../theme/light";
 import Svg from "../Svg";
 import { SvgProps } from "../types";
 
-const Icon: React.FC<SvgProps> = (props) => {
+interface Props extends SvgProps {
+  invertColor?: boolean
+}
+
+const Icon: React.FC<Props> = (props) => {
   const theme = useTheme();
-  const color = theme.colors.primary;
+  const color = props.invertColor ? theme.isDark ? lightTheme.colors.primary : darkTheme.colors.primary : theme.colors.primary;
 
   return (
     <Svg viewBox="0 0 1024 1024" {...props}>

@@ -25,6 +25,7 @@ export const links: MenuEntry[] = [
   {
     label: "Trade",
     icon: "TradeIcon",
+    bombLabel: "swap",
     items: [
       {
         label: "Exchange",
@@ -39,18 +40,21 @@ export const links: MenuEntry[] = [
   {
     label: "Bombing Range",
     shortLabel: "Farm",
+    bombLabel: "swap",
     icon: "FarmIcon",
     href: "/farms",
   },
   {
     label: "Minutes to Midnight",
     shortLabel: "MtM",
+    bombLabel: "play",
     icon: "MtmIcon",
     href: "/manhattan",
   },
   {
     label: "The Workshop",
     shortLabel: "Stake",
+    bombLabel: "swap",
     icon: "WorkshopIcon",
     href: "/staking",
     isNew: true,
@@ -93,6 +97,6 @@ export const socials = [
 ];
 
 export const MENU_HEIGHT = 64;
-export const MENU_ENTRY_HEIGHT = 48;
+export const MIN_MENU_HEIGHT = 46;
 export const SIDEBAR_WIDTH_FULL = 240;
 export const SIDEBAR_WIDTH_REDUCED = 56;

@@ -19,6 +19,7 @@ export const scaleVariants = {
 export const styleVariants = {
   [variants.PRIMARY]: {
     backgroundColor: "transparent",
+    boxShadow: "button",
   },
   [variants.SECONDARY]: {
     backgroundColor: "primary",
@@ -32,8 +33,8 @@ export const styleVariants = {
     },
   },
   [variants.TERTIARY]: {
-    backgroundColor: "tertiary",
-    boxShadow: "none",
+    backgroundColor: "background",
+    boxShadow: "flat",
     color: "primary",
   },
   [variants.SUBTLE]: {
@@ -52,5 +53,11 @@ export const styleVariants = {
     backgroundColor: "transparent",
     color: "primary",
     boxShadow: "none",
+    ":hover:not(:disabled):not(.pancake-button--disabled):not(.pancake-button--disabled):not(:active)": {
+      boxShadow: "none"
+    },
+    "&:active:not(:disabled):not(.pancake-button--disabled):not(.pancake-button--disabled)": {
+      boxShadow: "none"
+    }
   },
 };

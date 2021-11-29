@@ -22,6 +22,11 @@ const lightTheme: DefaultTheme = {
   pancakeToggle: lightPancakeToggle,
   radio: lightRadio,
   tooltip: lightTooltip,
+  shadows: {
+    ...base.shadows,
+    flat: "0 0 0 2px rgb(0 0 0 / 20%)",
+    button: `0 0 0 2px`
+  }
 };
 
 export default lightTheme;

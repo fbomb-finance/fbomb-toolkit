@@ -7,19 +7,23 @@ const scaleKeyValues = {
     handleHeight: "16px",
     handleWidth: "16px",
     handleLeft: "2px",
-    handleTop: "2px",
+    handleTop: "1px",
     checkedLeft: "calc(100% - 18px)",
     toggleHeight: "20px",
     toggleWidth: "36px",
+    borderRadius: "4px",
+    outerBorderRadius: "6px"
   },
   md: {
     handleHeight: "32px",
     handleWidth: "32px",
     handleLeft: "4px",
-    handleTop: "4px",
+    handleTop: "3px",
     checkedLeft: "calc(100% - 36px)",
     toggleHeight: "40px",
     toggleWidth: "72px",
+    borderRadius: "8px",
+    outerBorderRadius: "12px"
   },
 };
 
@@ -32,7 +36,7 @@ const getScale =
 export const Handle = styled.div<HandleProps>`
   background-color: ${({ theme }) => theme.toggle.handleBackground};
   border: solid 1px gray;
-  border-radius: 50%;
+  border-radius: ${getScale("borderRadius")};
   cursor: pointer;
   height: ${getScale("handleHeight")};
   left: ${getScale("handleLeft")};
@@ -66,10 +70,9 @@ export const Input = styled.input<InputProps>`
 
 const StyledToggle = styled.div<ToggleProps>`
   align-items: center;
-  background-color: ${({ theme, checked }) => theme.colors[checked ? "success" : "input"]};
-  border-radius: 24px;
-  border: 1px solid gray;
-  box-shadow: ${({ theme }) => theme.shadows.inset};
+  background-color: ${({ theme, checked }) => theme.colors[checked ? "primary" : "input"]};
+  border-radius: ${getScale("outerBorderRadius")};
+  border: ${({checked, theme}) => checked ? 'none' : `1px solid ${theme.colors.disabled}`};
   cursor: pointer;
   display: inline-flex;
   height: ${getScale("toggleHeight")};

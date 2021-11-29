@@ -1,25 +1,24 @@
-import React from "react";
-import styled, { keyframes } from "styled-components";
+import React, { useEffect } from "react";
+import styled, { keyframes, useTheme } from "styled-components";
 import { Link } from "react-router-dom";
-import { LogoIcon } from "../../../components/Svg";
+import { Wordmark } from "../../../components/Svg";
 import Flex from "../../../components/Box/Flex";
+import { Text } from "../../..";
 import { LogoIcon as LogoWithText } from "../icons";
+import TextTransition from "react-text-transition"
 
 interface Props {
-  withText: boolean;
-  isDark: boolean;
+  isDark?: boolean;
   href: string;
+  text?: string;
 }
-
-const blink = keyframes`
-  0%,  100% { transform: scaleY(1); } 
-  50% { transform:  scaleY(0.1); } 
-`;
 
 const StyledLink = styled(Link)`
   display: flex;
   align-items: center;
   margin-left: 12px;
+  margin-bottom: 4px;
+
   .mobile-icon {
     width: 32px;
     /* ${({ theme }) => theme.mediaQueries.nav} {
@@ -27,33 +26,32 @@ const StyledLink = styled(Link)`
     } */
     display: none;
   }
-  .desktop-icon {
-    width: 160px;
+  .wordmark {
+    width: 72px;
     display: block;
     /* ${({ theme }) => theme.mediaQueries.nav} {
       display: block;
     } */
   }
-  .right-eye {
-    animation-delay: 20ms;
+  .custom-text {
+    line-height: 1;
+    margin-left: 6px;
+    margin-top: 2px;
+    font-weight: 200;
+    font-size: 26px;
+    color: ${({theme}) => theme.colors.primary}
   }
-  &:hover {
-    .left-eye,
-    .right-eye {
-      transform-origin: center 60%;
-      animation-name: ${blink};
-      animation-duration: 350ms;
-      animation-iteration-count: 1;
-    }
-  }
+
 `;
 
-const Logo: React.FC<Props> = ({ isDark, href }) => {
+const Logo: React.FC<Props> = ({ isDark, href, text }) => {
+  const theme = useTheme()
   const isAbsoluteUrl = href.startsWith("http");
+
   const innerLogo = (
     <>
-      <LogoIcon className="mobile-icon" />
-      <LogoWithText className="desktop-icon" isDark={isDark} />
+      <Wordmark className="wordmark" darkMode={theme.isDark}/>
+      {<TextTransition text={text ?? ' '} className="custom-text"/>}
     </>
   );
 

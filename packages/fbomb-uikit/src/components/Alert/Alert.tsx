@@ -1,5 +1,5 @@
 import React from "react";
-import styled, { DefaultTheme } from "styled-components";
+import styled, { DefaultTheme, useTheme } from "styled-components";
 import CheckmarkCircleIcon from "../Svg/Icons/CheckmarkCircle";
 import ErrorIcon from "../Svg/Icons/Error";
 import BlockIcon from "../Svg/Icons/Block";
@@ -16,7 +16,13 @@ interface ThemedIconLabel {
   hasDescription: boolean;
 }
 
-const getThemeColor = ({ theme, variant = variants.INFO }: ThemedIconLabel) => {
+interface ThemedDivider {
+  variant: AlertProps["variant"];
+  theme: DefaultTheme;
+  hasDescription: boolean;
+}
+
+const getThemeColor = ({ theme, variant = variants.INFO }: ThemedIconLabel | ThemedDivider) => {
   switch (variant) {
     case variants.DANGER:
       return theme.colors.failure;
@@ -46,8 +52,8 @@ const getIcon = (variant: AlertProps["variant"] = variants.INFO) => {
 
 const IconLabel = styled.div<ThemedIconLabel>`
   display: flex;
-  background-color: ${getThemeColor};
-  color: ${({ theme }) => theme.alert.background};
+  background-color: ${({theme}) => theme.colors.backgroundAlt};
+  color: ${getThemeColor};
   padding: 12px;
 `;
 
@@ -69,17 +75,26 @@ const CloseHandler = styled.div`
 const StyledAlert = styled(Flex)`
   position: relative;
   background-color: ${({ theme }) => theme.alert.background};
-  box-shadow: 0px 20px 36px -8px rgba(14, 14, 44, 0.1), 0px 1px 1px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 0 0 2px ${({theme}) => theme.colors.border};
+  align-items: center;
+`;
+
+const Divider = styled.div<ThemedDivider>`
+  height: ${({hasDescription}) => hasDescription ? '52px' : '32px'};
+  width: 2px;
+  background-color: ${getThemeColor};
 `;
 
 const Alert: React.FC<AlertProps> = ({ title, children, variant, onClick }) => {
   const Icon = getIcon(variant);
+  const theme = useTheme()
 
   return (
     <StyledAlert>
       <IconLabel variant={variant} hasDescription={!!children}>
         <Icon color="currentColor" width="24px" />
       </IconLabel>
+      <Divider variant={variant} hasDescription={!!children}/>
       <Details hasHandler={!!onClick}>
         <Text bold>{title}</Text>
         {typeof children === "string" ? <Text as="p">{children}</Text> : children}

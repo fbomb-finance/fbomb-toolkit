@@ -1,26 +1,29 @@
 import React, { useState, useEffect, useRef } from "react";
-import styled from "styled-components";
+import styled, { DefaultTheme } from "styled-components";
 import throttle from "lodash/throttle";
 import Overlay from "../../components/Overlay/Overlay";
 import { useMatchBreakpoints } from "../../hooks";
 import Logo from "./components/Logo";
-import PopupPanel from "./components/Panel";
 import UserBlock from "./components/UserBlock";
 import { NavProps } from "./types";
 // import Avatar from "./components/Avatar";
-import { MENU_HEIGHT, SIDEBAR_WIDTH_REDUCED, SIDEBAR_WIDTH_FULL } from "./config";
+import { MENU_HEIGHT, MIN_MENU_HEIGHT } from "./config";
 import { FarmIcon, HomeIcon, TradeIcon, WorkshopIcon } from "./icons";
 import NavTopLinks from "./components/NavTopLinks";
-import { Flex } from "../..";
+import { Flex, SvgProps } from "../..";
+import ActionButton from "./components/ActionButton";
+import ThemeSwitcher from "./components/ThemeSwitcher";
+import { Link, useLocation } from "react-router-dom";
+import useBombMenu from "./components/BombMenu";
 
 const Wrapper = styled.div`
   position: relative;
   width: 100%;
 `;
 
-const StyledTopNav = styled.nav<{ showMenu: boolean }>`
+const StyledTopNav = styled.nav<{ scrolled: boolean }>`
   position: fixed;
-  top: ${({ showMenu }) => (showMenu ? 0 : `-${MENU_HEIGHT}px`)};
+  top: 0;
   left: 0;
   transition: top 0.2s;
   display: flex;
@@ -29,39 +32,38 @@ const StyledTopNav = styled.nav<{ showMenu: boolean }>`
   padding-left: 8px;
   padding-right: 16px;
   width: 100%;
-  height: ${MENU_HEIGHT}px;
-  background-color: ${({ theme }) => theme.nav.background};
+  background-color: ${({ theme }) => theme.isDark ? theme.colors.backgroundAlt : theme.colors.background};
   z-index: 20;
   transform: translate3d(0, 0, 0);
-  box-shadow: -3px 1px 6px 3px rgba(0, 0, 0, 20%);
+  box-shadow: ${({scrolled, theme}) => scrolled ? `1px 0 0 2px ${theme.colors.border}` : "none"};
+  transition: 0.2s box-shadow;
 `;
 
 const StyledBottomNav = styled.div`
   position: fixed;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-evenly;
   bottom: 0;
   width: 100%;
   height: 48px;
   background-color: ${({ theme }) => theme.nav.background};
+  left: 0;
+  box-shadow: 0 0 0 2px ${({theme}) => theme.colors.border};
+  z-index: 1;
 `
 
-const BodyWrapper = styled.div`
+const BodyWrapper = styled.div<{ isMobile: boolean }>`
   position: relative;
   display: flex;
+  padding-bottom: ${({isMobile}) => isMobile ? "54px" : "0"};
 `;
 
-const Inner = styled.div<{ isPushed: boolean; showMenu: boolean }>`
+const Inner = styled.div<{ isPushed: boolean;}>`
   flex-grow: 1;
-  margin-top: ${({ showMenu }) => (showMenu ? `${MENU_HEIGHT}px` : 0)};
+  margin-top: ${MENU_HEIGHT}px;
   transition: margin-top 0.2s, margin-left 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   transform: translate3d(0, 0, 0);
   max-width: 100%;
-
-  ${({ theme }) => theme.mediaQueries.nav} {
-    margin-left: ${({ isPushed }) => `${isPushed ? SIDEBAR_WIDTH_FULL : SIDEBAR_WIDTH_REDUCED}px`};
-    max-width: ${({ isPushed }) => `calc(100% - ${isPushed ? SIDEBAR_WIDTH_FULL : SIDEBAR_WIDTH_REDUCED}px)`};
-  }
 `;
 
 const MobileOnlyOverlay = styled(Overlay)`
@@ -72,6 +74,24 @@ const MobileOnlyOverlay = styled(Overlay)`
     display: none;
   }
 `;
+
+const StyledIconLink = styled(Link)`
+  display: flex;
+
+  svg {
+    box-sizing: initial;
+    padding: 0 12px;
+  }
+`
+
+const NavEntry: React.FC<{href: string, icon: React.FC<SvgProps>}> = ({href, icon}) => {
+  const Icon = icon;
+  return (
+    <StyledIconLink to={href}>
+      <Icon width="24px" />
+    </StyledIconLink>
+  )
+}
 
 const Menu: React.FC<NavProps> = ({
   account,
@@ -86,20 +106,23 @@ const Menu: React.FC<NavProps> = ({
 }) => {
   const { isXl } = useMatchBreakpoints();
   const isMobile = isXl === false;
-  const [isOpen, setOpen] = useState(false);
-  const [showMenu, setShowMenu] = useState(true);
   const refPrevOffset = useRef(window.pageYOffset);
+  const [menuHeight, setMenuHeight] = useState(MENU_HEIGHT);
+  const {
+    bombMenuRef,
+    bombMenu,
+    bombMenuVisible
+  } = useBombMenu({toggleTheme, links});
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
       const currentOffset = window.pageYOffset;
-      // const isBottomOfPage = window.document.body.clientHeight === currentOffset + window.innerHeight;
-      // const isTopOfPage = currentOffset === 0;
-      // Always show the menu when user reach the top
-      setShowMenu(true);
+      setMenuHeight(currentOffset > MENU_HEIGHT - MIN_MENU_HEIGHT ? MIN_MENU_HEIGHT : MENU_HEIGHT - currentOffset)
+      
       refPrevOffset.current = currentOffset;
     };
-    const throttledHandleScroll = throttle(handleScroll, 200);
+    const throttledHandleScroll = throttle(handleScroll, 20);
 
     window.addEventListener("scroll", throttledHandleScroll);
     return () => {
@@ -112,48 +135,41 @@ const Menu: React.FC<NavProps> = ({
 
   return (
     <Wrapper>
-      <StyledTopNav showMenu={showMenu}>
+      <StyledTopNav scrolled={menuHeight === MIN_MENU_HEIGHT} style={{
+        height: `${menuHeight}px`
+      }}>
         <Logo
-          withText
           isDark={isDark}
           href={homeLink?.href ?? "/"}
+          text={links.find(link => link.href === location.pathname || link?.items?.some(item => item.href === location.pathname))?.bombLabel ?? ''}
         />
-        {!isMobile && (
-          <NavTopLinks links={links}/>
-        )}
-        {!!login && !!logout && (
-          <Flex>
+        {!!login && !!logout ? (
+          <Flex alignItems="center">
+            {!isMobile && (
+              <NavTopLinks links={links}/>
+            )}
             <UserBlock account={account} login={login} logout={logout} />
+            {!isMobile && <div style={{margin: "0 8px 0 12px"}}><ThemeSwitcher isDark={isDark} toggleTheme={toggleTheme}/></div>}
             {/* profile && <Avatar profile={profile} /> */}
           </Flex>
-        )}
-        <PopupPanel
-          isOpen={isOpen}
-          isMobile={isMobile}
-          showMenu={showMenu}
-          isDark={isDark}
-          toggleTheme={toggleTheme}
-          bombPriceUsd={bombPriceUsd}
-          openNav={setOpen}
-          links={links}
-        />
+        ) : <Flex/>}
       </StyledTopNav>
-      <BodyWrapper>
-        <Inner isPushed={isOpen} showMenu={showMenu}>
-          {children}
-        </Inner>
-        <MobileOnlyOverlay show={isOpen} onClick={() => setOpen(false)} role="presentation" />
-      </BodyWrapper>
       {isMobile && (
         <StyledBottomNav>
-          <HomeIcon width="28px"/>
-          <TradeIcon width="28px"/>
-          <div/>
-          <FarmIcon width="28px"/>
-          <WorkshopIcon width="28px"/>
+          <NavEntry icon={HomeIcon} href="/home"/>
+          <NavEntry icon={TradeIcon} href="/swap"/>
+          <ActionButton ref={bombMenuRef} />
+          {bombMenuVisible && bombMenu}
+          <NavEntry icon={FarmIcon} href="/farm"/>
+          <NavEntry icon={WorkshopIcon} href="/stake"/>
         </StyledBottomNav>
       )}
       
+      <BodyWrapper isMobile={isMobile}>
+        <Inner isPushed={false}>
+          {children}
+        </Inner>
+      </BodyWrapper>      
     </Wrapper>
   );
 };

@@ -4,7 +4,7 @@ import Input from "../Input/Input";
 import { BalanceInputProps } from "./types";
 
 export const StyledBalanceInput = styled(Box)<{ isWarning: BalanceInputProps["isWarning"] }>`
-  background-color: ${({ theme }) => theme.colors.input};
+  border: solid 2px ${({ theme }) => theme.colors.border};
   padding: 8px 16px;
 `;
 
