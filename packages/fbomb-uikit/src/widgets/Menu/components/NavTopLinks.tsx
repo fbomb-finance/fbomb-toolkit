@@ -6,7 +6,6 @@ import Flex from "../../../components/Box/Flex";
 import { MenuEntry, MenuSubEntry } from "../types";
 import ArrowDropDown from "../../../components/Svg/Icons/ArrowDropDown"
 import MenuLink from "./MenuLink";
-import { Transition } from "react-transition-group";
 
 const ItemsWrapper = styled.div<{open: boolean}>`
   opacity: ${({open}) => open ? '1' : '0'};
@@ -54,7 +53,9 @@ const Entries: React.FC<{entries: MenuSubEntry[], activeLink?: string}> = ({entr
     <>
       {entries.map(item => (
         <SubEntry isActive={item.href === activeLink} key={item.label}>
-          <Link to={item.href}>{item.label}</Link>
+          <MenuLink href={item.href ?? ''}>
+            <Text>{item.label}</Text>
+          </MenuLink>
         </SubEntry>
       ))}
     </>

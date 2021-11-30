@@ -4,7 +4,6 @@ import { BrowserRouter, MemoryRouter, useHistory } from "react-router-dom";
 import Flex from "../../components/Box/Flex";
 import Heading from "../../components/Heading/Heading";
 import Text from "../../components/Text/Text";
-import { MenuEntry } from "./components/MenuEntry";
 import Menu from "./Menu";
 import { Language } from "./types";
 import { links } from "./config";
