@@ -1,4 +1,4 @@
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
 
 export const Arrow = styled.div`
   &,
@@ -21,7 +21,7 @@ export const Arrow = styled.div`
   }
 `;
 
-export const StyledTooltip = styled.div<{$maxWidth?: number, $animation?: any}>`
+export const StyledTooltip = styled.div<{$maxWidth?: number}>`
   padding: 16px;
   font-size: 16px;
   line-height: 130%;
@@ -30,7 +30,6 @@ export const StyledTooltip = styled.div<{$maxWidth?: number, $animation?: any}>`
   background: ${({ theme }) => theme.colors.background};
   color: ${({ theme }) => theme.colors.text};
   box-shadow: 0 0 0 2px ${({ theme }) => theme.colors.border} inset;
-  ${({$animation}) => $animation ?? 'none;'}
 
   // lord have mercy, but those are really important
 

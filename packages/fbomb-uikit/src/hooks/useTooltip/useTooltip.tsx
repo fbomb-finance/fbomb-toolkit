@@ -205,30 +205,11 @@ const useTooltip = (content: React.ReactNode, options: TooltipOptions): TooltipR
     ],
   });
 
-  const [transitioned, setTransition] = useState(false)
-
-  const animation = keyframes`
-    0% {
-      transform: ${styles.popper.transform} translateY(-10px);
-      opacity: 0;
-    }
-    100% {
-      transform: ${styles.popper.transform} translateY(0);
-      opacity: 1;
-    }
-  `
-
-  useEffect(() => {
-    setTimeout(() => {
-      setTransition(visible)
-    }, 0)
-  }, [visible])
 
   const tooltip = (
     <StyledTooltip
       ref={setTooltipElement}
       $maxWidth={options.maxWidth}
-      $animation={css`animation: ${animation} 200ms ease-out forwards;`}
       style={styles.popper}
       {...attributes.popper}
     >
