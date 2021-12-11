@@ -11,6 +11,7 @@ interface Props {
   isDark?: boolean;
   href: string;
   text?: string;
+  show: boolean;
 }
 
 const StyledLink = styled(Link)`
@@ -44,13 +45,16 @@ const StyledLink = styled(Link)`
 
 `;
 
-const Logo: React.FC<Props> = ({ isDark, href, text }) => {
+const Logo: React.FC<Props> = ({ isDark, href, text, show }) => {
   const theme = useTheme()
   const isAbsoluteUrl = href.startsWith("http");
 
   const innerLogo = (
     <>
-      <Wordmark className="wordmark" darkMode={theme.isDark}/>
+      <Wordmark className="wordmark" darkMode={theme.isDark} style={{
+        opacity: show ? '1' : '0',
+        transition: 'opacity 200ms'
+      }}/>
       {<TextTransition text={text ?? ' '} className="custom-text"/>}
     </>
   );

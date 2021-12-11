@@ -1,6 +1,6 @@
 {
   "name": "@fbomb-finance/uikit-v2",
-  "version": "0.42.6",
+  "version": "0.42.7",
   "description": "Set of UI components for fbomb projects",
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",

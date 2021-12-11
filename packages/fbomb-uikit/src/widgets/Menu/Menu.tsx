@@ -142,6 +142,7 @@ const Menu: React.FC<NavProps> = ({
           isDark={isDark}
           href={homeLink?.href ?? "/"}
           text={links.find(link => link.href === location.pathname || link?.items?.some(item => item.href === location.pathname))?.bombLabel ?? ''}
+          show={location.pathname === homeLink?.href && menuHeight <= MIN_MENU_HEIGHT }
         />
         {!!login && !!logout ? (
           <Flex alignItems="center">

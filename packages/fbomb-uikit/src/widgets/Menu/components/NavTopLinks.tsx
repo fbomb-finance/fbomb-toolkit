@@ -85,7 +85,7 @@ const NavTopLinks: React.FC<{links: MenuEntry[]}> = ({links}) => {
     <Flex>
       {links.map((link) => {
         if (link.label === "Home") return null
-        const label = link.shortLabel ?? `${link.label.substr(0, 5)}${link.label.length > 5 ? '...' : ''}`
+        const label = link.shortLabel ?? `${link.label.substr(0, 8)}${link.label.length > 8 ? '...' : ''}`
         const isActive = link.items ? link.items.some((item) => item.href === location.pathname) : link.href === location.pathname
         return (
           <NavEntry isActive={isActive} key={link.label}>
