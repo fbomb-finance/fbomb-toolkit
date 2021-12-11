@@ -19,3 +19,4 @@ export { default as TradeIcon } from "./Trade";
 export { default as TwitterIcon } from "./Twitter";
 export { default as WorkshopIcon } from "./Staking";
 export { default as MtmIcon } from "./MTM";
+export { default as PartnershipIcon } from "./Partnership"
