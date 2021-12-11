@@ -79,5 +79,6 @@ export { default as VoteIcon } from "./Icons/Vote";
 export { default as WarningIcon } from "./Icons/Warning";
 export { default as RefreshIcon } from "./Icons/Refresh";
 export { default as Wordmark } from "./Icons/Wordmark";
+export { default as PartnershipIcon } from "./Icons/Partnership"
 export { default as Svg } from "./Svg";
 export type { SvgProps } from "./types";
